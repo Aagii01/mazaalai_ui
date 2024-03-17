@@ -18,8 +18,10 @@ export class AuthGuard implements CanActivate {
   }
 }
 
-// Your isAuthenticated function remains the same
+
 const isAuthenticated = () => {
-  // Your actual authentication logic here
-  return false; // For demonstration, it returns true
+  if(localStorage.getItem("token")){
+    return true;
+  }
+  return false; 
 };

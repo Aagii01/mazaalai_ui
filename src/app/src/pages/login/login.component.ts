@@ -6,43 +6,70 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { RouterModule } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { Message, MessageService } from 'primeng/api';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    CheckboxModule,
-    FormsModule,
-    PasswordModule,
-    InputTextModule,
-    RouterModule
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ButtonModule,
+        CheckboxModule,
+        FormsModule,
+        PasswordModule,
+        InputTextModule,
+        RouterModule,
+        MessagesModule,
+        MessageModule,
+        ToastModule,
+    ],
+    providers: [MessageService],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+    valCheck: string[] = ['remember'];
+    password!: string;
+    email!: string;
+    users: any[] = [];
 
-  valCheck: string[] = ['remember'];
-  password!: string;
-  users: any[] = [];
+    msgs: Message[] = [];
+    constructor(
+        public layoutService: LayoutService,
+        public authService: AuthService,
+        public messageService: MessageService,
+        public router: Router
+    ) {}
 
-  constructor(public layoutService: LayoutService,private userService: UserService) { }
+    ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.loadUsers();
-  }
-
-
-  loadUsers(): void {
-    this.userService.getUsers().subscribe(data => {
-      console.log('data: ', data);
-      this.users = data;
-    }, error => {
-      console.error('There was an error!', error);
-    });
-  }
+    Login() {
+        if (!this.password && !this.email) {
+            return;
+        }
+        const credential = {
+            password: this.password,
+            email: this.email,
+        };
+        this.authService.login(credential).subscribe((res) => {
+            console.log('res: ', res);
+            if (res.status === true) {
+                localStorage.setItem('token', res.body);
+                this.router.navigate(["/"])
+            } else {
+                this.messageService.add({
+                    key: 'tst',
+                    severity: 'error',
+                    summary: 'Error Message',
+                    detail: res.message,
+                });
+            }
+        });
+    }
 }

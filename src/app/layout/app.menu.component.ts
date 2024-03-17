@@ -18,7 +18,7 @@ export class AppMenuComponent implements OnInit {
                 label:"Цэс",
                 items:[
                     {
-                        label:"Барааны Бүртгэл",
+                        label:"Захиалга",
                         icon: 'pi pi-fw pi-id-card',
                         routerLink: ['/pages/create_trackcode'] 
                     }

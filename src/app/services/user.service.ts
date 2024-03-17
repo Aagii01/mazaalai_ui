@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   // Change the apiUrl to a relative path that matches your proxy configuration
-  private apiUrl = environment.apiUrl
+  private apiUrl = environment.apiUrl + "/users"
 
   constructor(private http: HttpClient) { 
     console.log('apiUrl: ', this.apiUrl);
