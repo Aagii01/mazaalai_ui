@@ -21,6 +21,11 @@ export class AppMenuComponent implements OnInit {
                         label:"Захиалга",
                         icon: 'pi pi-fw pi-id-card',
                         routerLink: ['/pages/create_trackcode'] 
+                    },
+                    {
+                        label:"Захиалга Админ",
+                        icon: 'pi pi-fw pi-id-card',
+                        routerLink: ['/pages/order_admin'] 
                     }
                 ]
             },

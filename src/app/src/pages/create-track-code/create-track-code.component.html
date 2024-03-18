@@ -115,7 +115,7 @@
                         </td>
                         <td style="width: 25%; min-width: 10rem">
                             <span class="p-column-title">Id</span>
-                            {{  order?.id }}
+                            {{  order?.track_code }}
                         </td>
                         <td style="width: 25%; min-width: 10rem">
                             <span class="p-column-title">Description</span>
@@ -126,16 +126,9 @@
                             {{ order?.price | currency : "" : "₮" }}
                         </td>
                         <td style="width: 25%; min-width: 10rem">
-                            <span class="p-column-title">Status</span>
-                            <span
-                                [class]="
-                                    'product-badge status-' +
-                                    (product.status
-                                        ? product.status.toLowerCase()
-                                        : '')
-                                "
-                                >{{ order.status }}</span
-                            >
+                            <span *ngIf = "order.status == 0">Баталгаажаагүй</span>
+                            <span *ngIf = "order.status == 1">Хүлээн авсан</span>
+                            <span *ngIf = "order.status == 2">Монгол руу гарсан</span>
                         </td>
                         <td>
                             <div class="flex">
