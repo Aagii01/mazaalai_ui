@@ -4,6 +4,7 @@ import { NotfoundComponent } from './demo/components/notfound/notfound.component
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { LoginComponent } from './src/pages/login/login.component';
 import { AuthGuard } from './guard/guard-route.guard';
+import { SignInComponent } from './src/pages/sign-in/sign-in.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -21,6 +22,7 @@ import { AuthGuard } from './guard/guard-route.guard';
                 ]
             },
             { path: 'auth/login', component:LoginComponent },
+            { path: 'auth/signin', component:SignInComponent },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'notfound', component: NotfoundComponent },

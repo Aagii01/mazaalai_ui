@@ -20,8 +20,8 @@ export class OrderService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  deleteSelectedOrders(order : any): Observable<any> {
-    return this.http.delete<any[]>(this.apiUrl, order);
+  deleteSelectedOrders(ids : any): Observable<any> {
+    return this.http.delete<any[]>(this.apiUrl, {body:ids});
   }
 
 }

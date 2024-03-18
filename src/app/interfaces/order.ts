@@ -8,3 +8,4 @@ export interface Order {
     userId?: number;
     price?: number;
 }
+

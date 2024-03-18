@@ -190,6 +190,35 @@ export class CreateTrackCodeComponent implements OnInit {
         this.productDialog = false;
     }
 
+    deleteOrder() {
+        this.submitted = true;
+        const ids = this.selectedProducts.map((i)=>{
+            return i.id
+        });
+
+        this.orderService
+            .deleteSelectedOrders({
+               ids : ids,
+            })
+            .subscribe((response) => {
+                console.log('response: ', response);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: response.message,
+                    life: 3000,
+                });
+                if (response.status === true) {
+                    this.orders = [...response.body]
+                }
+            });
+        
+        console.log('this.selectedProducts: ', this.selectedProducts);
+        this.order = {};
+        this.productDialog = false;
+    }
+
+
     findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.products.length; i++) {
