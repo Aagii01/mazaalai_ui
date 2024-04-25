@@ -129,8 +129,9 @@
                             <span *ngIf = "order.status == 0">Баталгаажаагүй</span>
                             <span *ngIf = "order.status == 1">Хүлээн авсан</span>
                             <span *ngIf = "order.status == 2">Монгол руу гарсан</span>
+                            <span *ngIf = "order.status == 3">Монгол дахь салбарт ирсэн</span>
                         </td>
-                        <td>
+                        <!-- <td>
                             <div class="flex">
                                 <button
                                     pButton
@@ -147,7 +148,7 @@
                                     (click)="deleteProduct(order)"
                                 ></button>
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>
@@ -225,7 +226,7 @@
                     style="font-size: 2rem"
                 ></i>
                 <span *ngIf="product">
-                    Тус барааг устгахдаа итгэлтэй байна уу?
+                    Тус захиалгыг устгахдаа итгэлтэй байна уу?
                     <b>{{ product.name }}</b
                     >?</span
                 >

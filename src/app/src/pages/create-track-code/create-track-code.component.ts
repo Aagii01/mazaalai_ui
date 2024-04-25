@@ -139,6 +139,7 @@ export class CreateTrackCodeComponent implements OnInit {
         this.products = this.products.filter(
             (val) => !this.selectedProducts.includes(val)
         );
+        
         this.messageService.add({
             severity: 'success',
             summary: 'Successful',

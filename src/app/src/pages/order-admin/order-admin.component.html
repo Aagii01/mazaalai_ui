@@ -1,1 +1,173 @@
-<p>order-admin works!</p>
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-table
+                #dt
+                [value]="orders"
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [rows]="10"
+                [globalFilterFields]="[
+                    'track_code',
+                    'description',
+                    'price',
+                    'status'
+                ]"
+                [paginator]="true"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate=" {first} -с {last} -н хооронд {totalRecords} хуудас харах"
+                [(selection)]="selectedOrders"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+            >
+                <ng-template pTemplate="caption">
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                    >
+                        <h5 class="m-0">Хэрэглэгчийн захиалгууд</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Хайх..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="track_code">
+                            Трак Код<p-sortIcon field="track_code"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="description">
+                            Тэмдэглэл
+                            <p-sortIcon field="description"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="price">
+                            Үнэ <p-sortIcon field="price"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">
+                            Төлөв
+                            <p-sortIcon field="status"></p-sortIcon>
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-order>
+                    <tr>
+                        <td style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title">Id</span>
+                            {{ order?.track_code }}
+                        </td>
+                        <td style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title">Description</span>
+                            {{ order?.description }}
+                        </td>
+                        <td style="width: 25%; min-width: 8rem">
+                            <span class="p-column-title">Price</span>
+                            {{ order?.price | currency : "" : "₮" }}
+                        </td>
+                        <td style="width: 25%; min-width: 10rem">
+                            <span *ngIf = "order.status == 0">Баталгаажаагүй</span>
+                            <span *ngIf = "order.status == 1">Хүлээн авсан</span>
+                            <span *ngIf = "order.status == 2">Монгол руу гарсан</span>
+                            <span *ngIf = "order.status == 3">Монгол дахь салбарт ирсэн</span>
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="editOder(order)"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog
+            [(visible)]="orderDialog"
+            [style]="{ width: '450px',height:'500px' }"
+            header="Захиалга үүсгэх"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="name">Трак код</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="name"
+                        [(ngModel)]="order.track_code"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !order.name
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !order.name"
+                        >Трак код хоосон байна.</small
+                    >
+                </div>
+                <div class="field">
+                    <label for="name">Төлөв</label>
+                    <p-dropdown 
+                        [options]="statuses"
+                        [(ngModel)]="order.status"
+                        optionLabel="name"
+                        optionValue="code"
+                        [showClear]="true"
+                        placeholder="Захиалгын төлөвыг сонгоно уу"
+                    ></p-dropdown>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !order.name"
+                        >Трак код хоосон байна.</small
+                    >
+                </div>
+                <div class="field">
+                    <label for="description">Тэмдэглэл</label>
+                    <textarea
+                        id="description"
+                        pInputTextarea
+                        [(ngModel)]="order.description"
+                        rows="3"
+                        cols="20"
+                    ></textarea>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Цуцлах"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="hideDialog()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Хадгалах"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="saveOrder()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
