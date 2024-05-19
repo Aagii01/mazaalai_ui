@@ -87,7 +87,7 @@ export class CreateTrackCodeComponent implements OnInit {
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
-
+    paymentDialog = false;
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
@@ -126,7 +126,7 @@ export class CreateTrackCodeComponent implements OnInit {
 
     editProduct(product: Product) {
         this.product = { ...product };
-        this.productDialog = true;
+        this.paymentDialog = true;
     }
 
     deleteProduct(product: Product) {

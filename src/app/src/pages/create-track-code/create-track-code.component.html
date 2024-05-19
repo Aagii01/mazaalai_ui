@@ -123,15 +123,16 @@
                         </td>
                         <td style="width: 25%; min-width: 8rem">
                             <span class="p-column-title">Price</span>
-                            {{ order?.price | currency : "" : "₮" }}
+                            {{ 25000 | currency : "" : "₮" }}
                         </td>
                         <td style="width: 25%; min-width: 10rem">
                             <span *ngIf = "order.status == 0">Баталгаажаагүй</span>
-                            <span *ngIf = "order.status == 1">Хүлээн авсан</span>
-                            <span *ngIf = "order.status == 2">Монгол руу гарсан</span>
-                            <span *ngIf = "order.status == 3">Монгол дахь салбарт ирсэн</span>
+                            <span *ngIf = "order.status == 1">Төлбөр төлөгдсөн</span>
+                            <span *ngIf = "order.status == 2">Хүлээн авсан</span>
+                            <span *ngIf = "order.status == 3">Монгол руу гарсан</span>
+                            <span *ngIf = "order.status == 4">Монгол дахь салбарт ирсэн</span>
                         </td>
-                        <!-- <td>
+                        <td>
                             <div class="flex">
                                 <button
                                     pButton
@@ -140,19 +141,44 @@
                                     class="p-button-rounded p-button-success mr-2"
                                     (click)="editProduct(order)"
                                 ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    class="p-button-rounded p-button-warning"
-                                    (click)="deleteProduct(order)"
-                                ></button>
                             </div>
-                        </td> -->
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
+
+        <p-dialog
+            [(visible)]="paymentDialog"
+            [style]="{ width: '450px' }"
+            header="24 Цагийн дотор төлбөр төлсөн дохиололд баталгаажна."
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="name">Гүйлгээ хийх банк: </label>
+                    &nbsp;
+                    <label for="name">ХААН БАНК</label>
+                </div>
+                <div class="field">
+                    <label for="name">Дансны дугаар: </label>
+                    &nbsp;
+                    <label for="name">5540898989</label>
+                </div>
+                <div class="field">
+                    <label for="name">Шилжүүлэх дүн:</label>
+                    &nbsp;
+                    <label for="name">25,000 төг</label>
+                </div>
+                <div class="field">
+                    <label for="name">Гүйлгээний утга:</label>
+                    &nbsp;
+                    <label for="name">{{this.product.track_code}}</label>
+                </div>
+            </ng-template>
+
+        </p-dialog>
 
         <p-dialog
             [(visible)]="productDialog"

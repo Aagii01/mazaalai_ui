@@ -77,9 +77,10 @@ export class OrderAdminComponent implements OnInit {
     ) {
         this.statuses = [
             { name: 'Баталгаажаагүй', code: '0' },
-            { name: 'Хүлээн авсан', code: '1' },
-            { name: 'Монгол руу гарсан', code: '2' },
-            { name: 'Монгол дахь салбарт ирсэн', code: '3' },
+            { name: 'Төлбөр төлөгдсөн', code: '1' },
+            { name: 'Хүлээн авсан', code: '2' },
+            { name: 'Монгол руу гарсан', code: '3' },
+            { name: 'Монгол дахь салбарт ирсэн', code: '4' },
         ];
     }
 
