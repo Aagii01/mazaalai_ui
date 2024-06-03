@@ -71,7 +71,7 @@
                         </td>
                         <td style="width: 25%; min-width: 8rem">
                             <span class="p-column-title">Price</span>
-                            {{ order?.price | currency : "" : "₮" }}
+                            {{ 25000 | currency : "" : "₮" }}
                         </td>
                         <td style="width: 25%; min-width: 10rem">
                             <span *ngIf = "order.status == 0">Баталгаажаагүй</span>
